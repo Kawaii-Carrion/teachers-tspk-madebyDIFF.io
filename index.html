@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сотрудники колледжа ТСПК</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: #0d6efd;
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-light: white;
+            --bg-light: #f8f9fa;
+            --accent-bg: #e3f2fd;
+            --accent-border: #0d6efd;
+            --btn-hover: #e9ecef;
+            --btn-border: #ced4da;
+            --is-color: #A95EF7;
+            --preschool-color: #FA7373;
+            --preschoolother-color: #F77E28;
+            --primary-edu-color: #EFF459;
+            --sport-color: #5DA9FF;
+            --sportadap-color: #6CEFF8;
+            --professionals-color: #76FF8F;
+            --header-bg: white;
+            --header-text: #0460FF;
+            --header-link-hover: #667eea;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: "Montserrat", sans-serif;
+            transition: background-color 0.3s ease;
+            padding-top: 70px;
+        }
+
+        /* Хедер */
+        .navbar {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--header-text) !important;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--header-text) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--header-link-hover) !important;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Hero секция с фоновым изображением и затемнением */
+        .hero-section {
+            position: relative;
+            background-image: url(img/2.png);
+            /* Основное изображение */
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+            padding: 60px 0;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-image 0.3s ease;
+            z-index: 1;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /*background: rgba(0, 0, 0, 0.5);*/
+            /* Затемнение */
+            z-index: -1;
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Фоновое изображение для темы Профессионалы */
+        body.professionals-theme .hero-section {
+            background-image: url(img/3.png);
+            /* Изображение для профессионалов */
+        }
+
+        .filter-section {
+            margin-bottom: 30px;
+        }
+
+        /* Стили для кнопок фильтра (десктоп) */
+        .nav-pills .nav-link {
+            color: #495057;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            border: 2px solid var(--btn-border);
+        }
+
+        .nav-pills .nav-link:hover {
+            background-color: var(--btn-hover);
+            border-color: #adb5bd;
+        }
+
+        /* Цвета для активных кнопок */
+        .nav-pills .nav-link.active[data-category="is"] {
+            background-color: var(--is-color);
+            border-color: var(--is-color);
+            color: white;
+        }
+
+        .nav-pills .nav-link.active[data-category="preschool"] {
+            background-color: var(--preschool-color);
+            border-color: var(--preschool-color);
+            color: white;
+        }
+
+        .nav-pills .nav-link.active[data-category="preschoolother"] {
+            background-color: var(--preschoolother-color);
+            border-color: var(--preschoolother-color);
+            color: white;
+        }
+
+        .nav-pills .nav-link.active[data-category="primary"] {
+            background-color: var(--primary-edu-color);
+            border-color: var(--primary-edu-color);
+            color: white;
+        }
+
+        .nav-pills .nav-link.active[data-category="sport"] {
+            background-color: var(--sport-color);
+            border-color: var(--sport-color);
+            color: white;
+        }
+
+        .nav-pills .nav-link.active[data-category="professionals"] {
+            background-color: var(--professionals-color);
+            border-color: var(--professionals-color);
+            color: white;
+        }
+
+        .nav-pills .nav-link.active[data-category="all"] {
+            background: var(--primary-gradient);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Выпадающий список для мобильных */
+        .mobile-filter-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 30px;
+            border: 2px solid var(--btn-border);
+            background-color: white;
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .professionals-info {
+            background-color: var(--accent-bg);
+            border-left: 5px solid var(--accent-border);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: background-color 0.3s ease, border-left-color 0.3s ease;
+        }
+
+        /* Карточки */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            background-color: white;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            height: 250px;
+            object-fit: cover;
+            background-color: #e9ecef;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            color: #555;
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .quote-icon {
+            color: #6c757d;
+            opacity: 0.5;
+            margin-right: 5px;
+        }
+
+        /* Тег направления в карточке */
+        .direction-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .direction-tag.is {
+            background-color: var(--is-color);
+        }
+
+        .direction-tag.preschool {
+            background-color: var(--preschool-color);
+        }
+
+        .direction-tag.preschoolother {
+            background-color: var(--preschoolother-color);
+        }
+
+        .direction-tag.primary {
+            background-color: var(--primary-edu-color);
+        }
+
+        .direction-tag.sport {
+            background-color: var(--sport-color);
+        }
+
+        .direction-tag.sportadap {
+            background-color: var(--sportadap-color);
+        }
+
+        .direction-tag.professionals {
+            background-color: var(--professionals-color);
+        }
+
+        .achievement {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+            font-style: normal;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .achievement small {
+            color: #6c757d;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background-color: #1A1A1A;
+            color: #ffffff;
+            padding: 40px 0;
+            margin-top: 16px;
+        }
+
+        .footer a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* Тема Профессионалы */
+        body.professionals-theme {
+            --primary-gradient: linear-gradient(135deg, #00A651 0%, #1A1A1A 100%);
+            --primary-color: #00A651;
+            --secondary-color: #1A1A1A;
+            
+            --text-light: white;
+            --bg-light: #f0f0f0;
+            --accent-bg: #d4edda;
+            --accent-border: #00A651;
+            --btn-hover: #c8e6c9;
+        }
+
+        body.professionals-theme .professionals-info {
+            background-color: var(--accent-bg);
+            border-left-color: var(--accent-border);
+        }
+
+        body.professionals-theme .achievement {
+            color: var(--primary-color);
+        }
+
+        body.professionals-theme footer {
+            background-color: #1A1A1A;
+        }
+
+        .professionals-logo {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .professionals-logo i {
+            font-size: 2.5rem;
+            color: #00A651;
+        }
+
+        .professionals-logo span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        body.professionals-theme .professionals-logo {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Хедер (фиксированный) -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="img/Logo_TSPK.png" class="img-fluid" alt="">ТСПК | 2026
+            </a>
+            
+        </div>
+    </nav>
+    <!-- Шапка лендинга с фоновым изображением -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="professionals-logo">
+
+                <span>ПРОФЕССИОНАЛЫ</span>
+            </div>
+            <h1>Наши преподаватели</h1>
+            <p>Команда профессионалов, которые вдохновляют и передают знания</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Фильтр: десктопная версия (кнопки) -->
+        <div class="filter-section text-center d-none d-sm-block">
+            <ul class="nav nav-pills justify-content-center" id="categoryFilter" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="all-tab" data-category="all" type="button"
+                        role="tab">Все</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="is-tab" data-category="is" type="button" role="tab">Информационные
+                        системы и программирование</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="preschool-tab" data-category="preschool" type="button"
+                        role="tab">Дошкольное образование</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="primary-tab" data-category="primary" type="button" role="tab">Начальные
+                        классы</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sport-tab" data-category="sport" type="button" role="tab">Физическая
+                        культура</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="preschoolother-tab" data-category="preschoolother" type="button"
+                        role="tab">Специальное дошкольное образование</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sportadap-tab" data-category="sportadap" type="button"
+                        role="tab">Адаптивная физическая культура</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="professionals-tab" data-category="professionals" type="button"
+                        role="tab">Профессионалы</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Фильтр: мобильная версия (select) -->
+        <div class="d-block d-sm-none">
+            <select id="mobileFilterSelect" class="mobile-filter-select">
+                <option value="all" selected>Все</option>
+                <option value="is">Информационные системы и программирование</option>
+                <option value="preschool">Дошкольное образование</option>
+                <option value="primary">Начальные классы</option>
+                <option value="sport">Физическая культура</option>
+                <option value="preschoolother">Специальное дошкольное образование</option>
+                <option value="sportadap">Адаптивная физическая культура</option>
+                <option value="professionals">Профессионалы</option>
+            </select>
+        </div>
+
+        <!-- Блок информации о Профессионалах (скрыт по умолчанию) -->
+        <div id="professionalsInfo" class="professionals-info" style="display: none;">
+            <h4>Что такое «Профессионалы»?</h4>
+            <p>Всероссийское чемпионатное движение по профессиональному мастерству «Профессионалы» — это соревнования,
+                где студенты колледжей демонстрируют свои навыки реальным работодателям. Наш колледж гордится тем, что
+                вошёл в федеральный проект «Профессионалитет» по отрасли «Педагогика». Наши наставники готовят
+                победителей и призёров региональных и всероссийских этапов.</p>
+        </div>
+
+        <!-- Карточки преподавателей -->
+        <div class="row g-4" id="teacherCards">
+            <!-- Карточка 1: Трепалина Ирина Игоревна -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="is,preschool"
+                data-mentor="false">
+                <div class="card">
+                    <img src="img/trepalina.png" class="card-img-top" alt="Фото Трепалина Ирина Игоревна">
+                    <div class="card-body">
+                        <div>
+                            <span class="direction-tag is">ИСИП</span>
+                            <span class="direction-tag preschool">ДО</span>
+                        </div>
+                        <h5 class="card-title">Трепалина Ирина Игоревна</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Мама 24 ангелочков
+                            и 23 актрис »
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Карточка 2: Ряполова Елена Олеговна -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="is" data-mentor="false">
+                <div class="card">
+                    <img src="img/ryapolova.png" class="card-img-top" alt="Фото Ряполова Елена Олеговна">
+                    <div class="card-body">
+                        <span class="direction-tag is">ИСИП</span>
+                        <h5 class="card-title">Ряполова Елена Олеговна</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Я знаю что у вас все получится, ведь вы поступили в ТСПК, а значит способные»
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Карточка 3: Лихачева Екатерина Сергеевна -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="preschool,preschoolother,sport"
+                data-mentor="true">
+                <div class="card">
+                    <img src="img/lihacheva.png" class="card-img-top" alt="Фото Лихачева Екатерина Сергеевна">
+                    <div class="card-body">
+                        <span class="direction-tag preschool">ДО</span>
+                        <span class="direction-tag preschoolother">СД</span>
+                        <span class="direction-tag sport">ФК</span>
+                        <h5 class="card-title">Лихачева Екатерина Сергеевна</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Детей понять так же сложно как и точные науки. Этот тяжкий труд несут воспитатели»
+                        </p>
+                        <div class="achievement">
+                            <strong>Наставник в «Профессионалах»</strong><br>
+                            Компетенция: «Рекрутинг»<br>
+                            <small>🥉 3е место (2026) - Шубин Илья</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Карточка 4: Шаров Сергей Александрович -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="is" data-mentor="false">
+                <div class="card">
+                    <img src="img/sharov.png" class="card-img-top" alt="Фото Шаров Сергей Александрович">
+                    <div class="card-body">
+                        <span class="direction-tag is">ИСИП</span>
+                        <h5 class="card-title">Шаров Сергей Александрович</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Даже если вы перепутали кавычки в коде, эта мелочь может все разрушить»
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Карточка 5: Иринин Данил Владимирович -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="is,primary,sportadap"
+                data-mentor="true">
+                <div class="card">
+                    <img src="img/irinin.png" class="card-img-top" alt="Фото Иринин Данил Владимирович">
+                    <div class="card-body">
+                        <span class="direction-tag is">ИСИП</span>
+                        <span class="direction-tag primary">НК</span>
+                        <span class="direction-tag sportadap">АФК</span>
+                        <h5 class="card-title">Иринин Данил Владимирович</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Всегда иди вперед, никогда не оглядывайся назад и смотри под ноги»
+                        </p>
+                        <div class="achievement">
+                            <strong>Наставник в «Профессионалах»</strong><br>
+                            Компетенция: «Вожатской деятельности»<br>
+                            <small>🥈 2ое место (2026) - Струкова София</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Карточка 5: Дьякова Елизавета Сергеевна -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="is">
+                <div class="card">
+                    <img src="img/diyakova.png" class="card-img-top" alt="Фото Дьякова Елизавета Сергеевна">
+                    <div class="card-body">
+                        <span class="direction-tag is">ИСИП</span>
+                        <h5 class="card-title">Дьякова Елизавета Сергеевна</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Мы хотим сделать все круто, классно и чётинько, потому что мы программисты»
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Карточка 5: Кондурар Марина Викторовна -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="is">
+                <div class="card">
+                    <img src="img/kondurar.png" class="card-img-top" alt="Фото Кондурар Марина Викторовна">
+                    <div class="card-body">
+                        <span class="direction-tag is">ИСИП</span>
+                        <h5 class="card-title">Кондурар Марина Викторовна</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Если вы сможете работать с C#, сможете освоить все, даже химию»
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Карточка 5: Божко Дарья Александровна -->
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 teacher-card" data-category="preschool,preschoolother"
+                data-mentor="true">
+                <div class="card">
+                    <img src="img/bozhko.png" class="card-img-top" alt="Фото Божко Дарья Александровна">
+                    <div class="card-body">
+                        <span class="direction-tag preschool">ДО</span>
+                        <span class="direction-tag preschoolother">СД</span>
+                        <h5 class="card-title">Божко Дарья Александровна</h5>
+                        <p class="card-text">
+                            <span class="quote-icon">❝</span>
+                            «Упорство и труд - все перетрут»
+                        </p>
+                        <div class="achievement">
+                            <strong>Наставник в «Профессионалах»</strong><br>
+                            Компетенция: «Дошкольное воспитание»<br>
+                            <small>🥇 1ое место(2026) - Шандабыла Полина</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="text-white"><i class="fas"></i>ГАПОУ Тольяттинский
+                        социально-педагогический колледж</h4>
+                    <p>Приемная комиссия: ул. Мурысева 84 | Телефон 8 (8482) 24-65-92</p>
+                    <img src="img/startap.svg" alt="">
+                </div>
+
+                <div class="col-md-3">
+                    <h5 class="text-white">Мы в соцсетях</h5>
+                    <a href="#" class="me-3"><i class="fab fa-vk fa-2x" style="color: #ffffff;"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-telegram fa-2x" style="color: #ffffff;"></i></a>
+
+                </div>
+                <div class="col-md-3">
+                    <img src="img/professionals_logo.png" alt="">
+                </div>
+            </div>
+            <hr class="bg-secondary">
+            <p class="text-center mb-0">© 2026 ТСПК</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Скрипт фильтрации и смены темы -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('#categoryFilter .nav-link');
+            const mobileSelect = document.getElementById('mobileFilterSelect');
+            const teacherCards = document.querySelectorAll('.teacher-card');
+            const professionalsInfo = document.getElementById('professionalsInfo');
+            const body = document.body;
+
+            // Проверка, содержит ли строка категорий (через запятую) нужную категорию
+            function hasCategory(categoriesStr, category) {
+                if (!categoriesStr) return false;
+                const categories = categoriesStr.split(',').map(c => c.trim());
+                return categories.includes(category);
+            }
+
+            function filterCards(category) {
+                professionalsInfo.style.display = 'none';
+                body.classList.remove('professionals-theme');
+
+                teacherCards.forEach(card => {
+                    if (category === 'all') {
+                        card.style.display = 'block';
+                    } else if (category === 'professionals') {
+                        // Для вкладки "Профессионалы" оставляем логику по data-mentor
+                        if (card.getAttribute('data-mentor') === 'true') {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                        professionalsInfo.style.display = 'block';
+                        body.classList.add('professionals-theme');
+                    } else {
+                        // Для обычных направлений: показываем, если категория есть в списке
+                        const cardCategories = card.getAttribute('data-category');
+                        if (hasCategory(cardCategories, category)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            }
+
+            function setActiveFilter(category) {
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-category') === category) {
+                        btn.classList.add('active');
+                    }
+                });
+                if (mobileSelect) {
+                    mobileSelect.value = category;
+                }
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const category = this.getAttribute('data-category');
+                    setActiveFilter(category);
+                    filterCards(category);
+                });
+            });
+
+            if (mobileSelect) {
+                mobileSelect.addEventListener('change', function () {
+                    const category = this.value;
+                    setActiveFilter(category);
+                    filterCards(category);
+                });
+            }
+
+            // Инициализация
+            filterCards('all');
+            setActiveFilter('all');
+        });
+    </script>
+</body>
+
+</html>
